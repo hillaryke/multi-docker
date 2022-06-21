@@ -38,7 +38,7 @@ jobs:
         run: docker build -t hilare/multi-server ./server
 
       - name: Build worker docker image
-        run: docker build -t hilare/mutli-worker ./worker
+        run: docker build -t hilare/multi-worker ./worker
 
       - name: Push docker images
         run: |
