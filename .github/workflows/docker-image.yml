@@ -42,7 +42,7 @@ jobs:
 
       - name: Push docker images
         run: |
-          docker push hilare/mutli-client
-          docker push hilare/mutli-nginx
-          docker push hilare/mutli-server
-          docker push hilare/mutli-worker
+          docker push hilare/multi-client
+          docker push hilare/multi-nginx
+          docker push hilare/multi-server
+          docker push hilare/multi-worker
