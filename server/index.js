@@ -7,7 +7,7 @@ const cors = require('cors');
 
 const app = express();
 app.use(cors());
-app.user(bodyParser.json());
+app.use(bodyParser.json());
 
 // Postgres Client Setup
 const { Pool } = require('pg');
@@ -25,7 +25,7 @@ pgClient.query('CREATE TABLE IF NOT EXISTS values (number INT)')
 
 // Redis Client Setup
 const redis = require('redis');
-const redisClient = redis.CreateClient({
+const redisClient = redis.createClient({
    host: keys.redisHost,
    port: keys.rediPort,
    retry_strategy: () => 1000
