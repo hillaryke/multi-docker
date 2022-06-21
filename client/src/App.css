@@ -1,0 +1,56 @@
+.main-container {
+  background-color: white;
+  padding-bottom: 1rem;
+}
+
+.header {
+  background-color: aquamarine;
+  padding: 1px;
+  padding-left: 16px;
+}
+
+.createtemplate-box {
+  padding-left: 16px;
+}
+
+.folderStructure-box {
+  padding-left: 16px;
+}
+
+.write-code {
+  background-color: #f7f7f7;
+  padding: 12px;
+}
+
+.api-box {
+  display: flex;
+}
+
+.fix-header {
+  position: sticky;
+  top: 0;
+  background-color: aqua;
+  padding: 16px;
+}
+
+.github-link {
+  margin-left: 1rem;
+}
+
+.point {
+  display: list-item;
+}
+
+@media (max-width: 600px) {
+  .main-container {
+    width: fit-content;
+  }
+  .api-box {
+    display: block;
+  }
+  .github-link {
+    display: flex;
+    margin: 10px;
+    margin-top: 20px;
+  }
+}
