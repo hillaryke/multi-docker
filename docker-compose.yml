@@ -4,3 +4,10 @@ services:
     image: 'postgres:latest'
   redis:
     image: 'redis:latest'
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile.dev
+    volumes:
+      - /app/node_modules
+      - ./server:/app
