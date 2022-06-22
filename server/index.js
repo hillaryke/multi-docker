@@ -67,7 +67,7 @@ app.post('/values', async ( req, res ) => {
 
    // tell redis to start calculating fib value for the index
    redisPublisher.publish('insert', index);
-   pgClient.query('INSERT INTO(number) VALUES($1)', [index]);
+   pgClient.query('INSERT INTO values(number) VALUES($1)', [index]);
 
    res.send({ working: true });
 });
