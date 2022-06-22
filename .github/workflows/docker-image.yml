@@ -46,3 +46,19 @@ jobs:
           docker push hilare/multi-nginx
           docker push hilare/multi-server
           docker push hilare/multi-worker
+
+      # create a zipped package excluding node_modules, to send Dockerrun.aws.json to beanstalk
+      - name: Generete deployment package
+        run: |
+          zip -r deploy.zip * -x **node_modules\* **git\*
+
+      - name: Deploy to AWS ElasticBeanstalk
+        uses: einaregilsson/beanstalk-deploy@v16
+        with:
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          application-name: multi-docker
+          environment_name: Multidocker-env
+          version_label: multi-docker-app-1
+          region: us-east-1
+          deployment_package: deploy.zip
