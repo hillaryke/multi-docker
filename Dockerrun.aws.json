@@ -1,0 +1,23 @@
+{
+  "AWSEBDockerrunversion": "2",
+  "containerDefinitions": [
+    {
+      "name": "client",
+      "image": "hilare/multi-client",
+      "hostname": "client",
+      "essential": false
+    },
+    {
+      "name": "server",
+      "image": "hilare/multi-server",
+      "hostname": "api",
+      "essential": false
+    },
+    {
+      "name": "worker",
+      "image": "hilare/multi-worker",
+      "hostname": "worker",
+      "essential": false
+    }
+  ]
+}
