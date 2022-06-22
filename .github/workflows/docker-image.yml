@@ -57,7 +57,7 @@ jobs:
         with:
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          application-name: multi-docker
+          application_name: multi-docker
           environment_name: Multidocker-env
           version_label: multi-docker-app-1
           region: us-east-1
