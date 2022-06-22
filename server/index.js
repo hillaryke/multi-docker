@@ -1,11 +1,15 @@
 const keys = require('./keys');
+const { createServer } = require('http');
 
 // Express App Setup
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
+const WebSocket = require('ws');
+
 const app = express();
+const server = createServer(app);
 app.use(cors());
 app.use(bodyParser.json());
 
@@ -72,4 +76,13 @@ app.post('/values', async ( req, res ) => {
 
 app.listen(5000, err => {
    console.log('Listening');
+});
+
+const wss = new WebSocket.Server({ path: "/ws", server });
+wss.on("connection", (ws) => {
+   console.log("WebSocket connection established");
+
+   ws.on("close", () => {
+      console.log("WebSocket connection closed");
+   });
 });
