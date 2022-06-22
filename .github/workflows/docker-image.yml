@@ -9,7 +9,7 @@ on:
 # Environment variables
 
 jobs:
-  push-image-to-docker-hub: # job name
+  push-image-to-docker-hub-and-EB: # job name
     runs-on: ubuntu-latest
     steps:
       - name: Checkout source code or latest repo
@@ -47,6 +47,14 @@ jobs:
           docker push hilare/multi-server
           docker push hilare/multi-worker
 
+      #  generating sequential build numbers
+      - name: Build Number Generator
+        id: buildnumber
+        uses: einaregilsson/build-number@v3
+        with:
+          token: ${{ secrets.github_token }}
+
+
       # create a zipped package excluding node_modules, to send Dockerrun.aws.json to beanstalk
       - name: Generete deployment package
         run: zip -r deploy.zip * -x '*node_modules*' '*.git*'
@@ -58,6 +66,6 @@ jobs:
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           application_name: multi-docker
           environment_name: Multidocker-env
-          version_label: multi-docker-app-3
+          version_label: multi-docker-app-${{ steps.buildnumber.outputs.build_number }}
           region: us-east-1
           deployment_package: deploy.zip
