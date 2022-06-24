@@ -15,6 +15,13 @@ jobs:
       - name: Checkout source code or latest repo
         uses: actions/checkout@v3
 
+      #  generating sequential build numbers
+      - name: Build Number Generator
+        id: buildnumber
+        uses: einaregilsson/build-number@v3
+        with:
+          token: ${{ secrets.github_token }}
+
       - name: Build the client image
         run: docker build -t hilare/react-test -f ./client/Dockerfile.dev ./client
 
@@ -29,31 +36,23 @@ jobs:
           echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USER" --password-stdin
 
       - name: Build docker client
-        run: docker build -t hilare/multi-client ./client
+        run: docker build -t hilare/multi-client:v$BUILD_NUMBER ./client
 
       - name: Build nginx
-        run: docker build -t hilare/multi-nginx ./nginx
+        run: docker build -t hilare/multi-nginx:v$BUILD_NUMBER ./nginx
 
       - name: Build server docker image
-        run: docker build -t hilare/multi-server ./server
+        run: docker build -t hilare/multi-server:v$BUILD_NUMBER ./server
 
       - name: Build worker docker image
-        run: docker build -t hilare/multi-worker ./worker
+        run: docker build -t hilare/multi-worker:v$BUILD_NUMBER ./worker
 
       - name: Push docker images
         run: |
-          docker push hilare/multi-client
-          docker push hilare/multi-nginx
-          docker push hilare/multi-server
-          docker push hilare/multi-worker
-
-      #  generating sequential build numbers
-      - name: Build Number Generator
-        id: buildnumber
-        uses: einaregilsson/build-number@v3
-        with:
-          token: ${{ secrets.github_token }}
-
+          docker push hilare/multi-client:v$BUILD_NUMBER
+          docker push hilare/multi-nginx:v$BUILD_NUMBER
+          docker push hilare/multi-server:v$BUILD_NUMBER
+          docker push hilare/multi-worker:v$BUILD_NUMBER
 
       # create a zipped package excluding node_modules, to send Dockerrun.aws.json to beanstalk
       - name: Generete deployment package
@@ -66,6 +65,6 @@ jobs:
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           application_name: multi-docker
           environment_name: Multidocker-env
-          version_label: multi-docker-app-${{ steps.buildnumber.outputs.build_number }}
-          region: us-east-1
+          version_label: multi-docker-app-v$BUILD_NUMBER
+          region: us-eas t-1
           deployment_package: deploy.zip
