@@ -34,23 +34,23 @@ jobs:
           echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USER" --password-stdin
 
       - name: Build docker client
-        run: docker build -t hilare/multi-client:v$BUILD_NUMBER ./client
+        run: docker build -t hilare/multi-client ./client
 
       - name: Build nginx
-        run: docker build -t hilare/multi-nginx:v$BUILD_NUMBER ./nginx
+        run: docker build -t hilare/multi-nginx ./nginx
 
       - name: Build server docker image
-        run: docker build -t hilare/multi-server:v$BUILD_NUMBER ./server
+        run: docker build -t hilare/multi-server ./server
 
       - name: Build worker docker image
-        run: docker build -t hilare/multi-worker:v$BUILD_NUMBER ./worker
+        run: docker build -t hilare/multi-worker ./worker
 
       - name: Push docker images
         run: |
-          docker push hilare/multi-client:v$BUILD_NUMBER
-          docker push hilare/multi-nginx:v$BUILD_NUMBER
-          docker push hilare/multi-server:v$BUILD_NUMBER
-          docker push hilare/multi-worker:v$BUILD_NUMBER
+          docker push hilare/multi-client
+          docker push hilare/multi-nginx
+          docker push hilare/multi-server
+          docker push hilare/multi-worker
 
       # create a zipped package excluding node_modules, to send Dockerrun.aws.json to beanstalk
       - name: Generete deployment package
