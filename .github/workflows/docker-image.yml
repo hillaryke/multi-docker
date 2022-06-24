@@ -65,6 +65,6 @@ jobs:
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           application_name: multi-docker
           environment_name: Multidocker-env
-          version_label: multi-docker-app-v$BUILD_NUMBER
+          version_label: multi-docker-app-v${{ steps.buildnumber.outputs.build_number }}
           region: us-east-1
           deployment_package: deploy.zip
