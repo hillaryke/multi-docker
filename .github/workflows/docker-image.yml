@@ -66,5 +66,5 @@ jobs:
           application_name: multi-docker
           environment_name: Multidocker-env
           version_label: multi-docker-app-v$BUILD_NUMBER
-          region: us-eas t-1
+          region: us-east-1
           deployment_package: deploy.zip
