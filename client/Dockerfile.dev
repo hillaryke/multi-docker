@@ -1,15 +1,6 @@
 FROM node:alpine
-WORKDIR '/app'
-
-COPY --chown=node:node package.json .
-
+WORKDIR "/app"
+COPY ./package.json ./
 RUN npm install
-
-RUN mkdir node_modules/.cache && chmod -R 777 node_modules/.cache
-
-COPY --chown=node:node . .
-
-USER node
-
-CMD ["npm", "start"]
-
+COPY . .
+CMD ["npm", "run", "start"]
